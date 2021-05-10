@@ -1,0 +1,33 @@
+{
+  "name": "twimbit-social-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "server": "nodemon backend/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Randeep-Rana-au8/twimbit-social-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Randeep-Rana-au8/twimbit-social-app/issues"
+  },
+  "homepage": "https://github.com/Randeep-Rana-au8/twimbit-social-app#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.4",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.7"
+  }
+}
