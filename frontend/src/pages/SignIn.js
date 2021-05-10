@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { UserContext } from "../App";
 
 function Copyright() {
   return (
@@ -28,6 +29,8 @@ function Copyright() {
 }
 
 function SignInSide({ history }) {
+  const { state, dispatch } = useContext(UserContext);
+
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +39,9 @@ function SignInSide({ history }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { data } = await axios.post(`/api/users/login`, { email, password });
+    dispatch({ type: "USER", payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
+    setUserInfo(data);
   };
 
   useEffect(() => {

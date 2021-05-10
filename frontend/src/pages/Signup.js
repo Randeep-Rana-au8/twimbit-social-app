@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import axios from "axios";
+import { UserContext } from "../App";
 
 function Copyright() {
   return (
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -57,8 +59,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignUpSide({ history }) {
+  const { state, dispatch } = useContext(UserContext);
   const classes = useStyles();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { data } = await axios.post(`/api/users`, { name, email, password });
+    dispatch({ type: "USER", payload: data });
+    localStorage.setItem("userInfo", JSON.stringify(data));
+    setUserInfo(data);
+  };
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
+    console.log(userInfo);
+    if (userInfo) {
+      history.push("/");
+    }
+  }, [userInfo]);
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -72,7 +95,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Register
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -81,6 +104,8 @@ export default function SignInSide() {
               id="name"
               label="Name"
               name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               autoComplete="name"
               autoFocus
             />
@@ -89,6 +114,8 @@ export default function SignInSide() {
               margin="normal"
               required
               fullWidth
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               id="email"
               label="Email Address"
               name="email"
@@ -100,16 +127,15 @@ export default function SignInSide() {
               margin="normal"
               required
               fullWidth
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
