@@ -21,7 +21,7 @@ const Home = ({ history }) => {
           Authorization: `Bearer ${state.token}`,
         },
       };
-      const { data } = await axios.get("/api/posts", config);
+      const { data } = await axios.get("https://twimbit-backend.herokuapp.com/api/posts", config);
       setAllPosts(data);
     }
   }, [userInfo]);
@@ -33,6 +33,7 @@ const Home = ({ history }) => {
           description={post.description}
           image={post.image}
           user={post.user}
+          date={post.createdAt}
         />
       ))}
     </div>

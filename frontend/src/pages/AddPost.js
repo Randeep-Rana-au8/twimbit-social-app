@@ -19,7 +19,7 @@ const AddPost = ({ history }) => {
     };
 
     const { data } = await axios.post(
-      "/api/posts",
+      "https://twimbit-backend.herokuapp.com/api/posts",
       {
         title,
         description,
@@ -27,7 +27,9 @@ const AddPost = ({ history }) => {
       },
       config
     );
-
+    setTitle("");
+    setDescription("");
+    setImage("");
     console.log(data);
   };
 

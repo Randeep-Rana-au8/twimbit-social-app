@@ -64,7 +64,7 @@ export default function RecipeReviewCard({ title, description, image, user }) {
           </IconButton>
         }
         title={user.name}
-        subheader="September 14, 2016"
+        subheader="May 11, 2021"
       />
       <CardMedia className={classes.media} image={image} title="Paella dish" />
       <CardContent>

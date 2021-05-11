@@ -38,7 +38,10 @@ function SignInSide({ history }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await axios.post(`/api/users/login`, { email, password });
+    const { data } = await axios.post(`https://twimbit-backend.herokuapp.com/api/users/login`, {
+      email,
+      password,
+    });
     dispatch({ type: "USER", payload: data });
     localStorage.setItem("userInfo", JSON.stringify(data));
     setUserInfo(data);
