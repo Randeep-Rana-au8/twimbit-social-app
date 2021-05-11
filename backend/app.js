@@ -6,21 +6,32 @@ import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import colors from "colors";
 import cors from "cors";
+import path from "path";
 import { createPost } from "./controllers/postController.js";
 
 const port = process.env.PORT || 6000;
 const app = express();
-
 connectDb();
+
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/frontend/build")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running....");
+  });
+}
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
-
-app.get("/", (req, res) => {
-  res.send("Health Ok");
-});
 
 app.listen(port, (err) => {
   if (err) console.log(err);

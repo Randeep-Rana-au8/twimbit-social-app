@@ -46,8 +46,10 @@ function SignInSide({ history }) {
 
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
+
     console.log(userInfo);
     if (userInfo) {
+      dispatch({ type: "USER", payload: JSON.parse(localStorage.getItem("userInfo")) });
       history.push("/");
     }
   }, [userInfo]);

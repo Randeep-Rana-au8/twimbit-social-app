@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: "none",
+    display: "block",
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -175,7 +175,7 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant="h6">
             Twimbit
           </Typography>
 
