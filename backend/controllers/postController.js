@@ -18,4 +18,11 @@ const createPost = expressAsyncHandler(async (req, res) => {
   res.status(201).json(createdPost);
 });
 
-export { createPost };
+// @access  Private
+// @routes  Get /api/posts
+const getPosts = expressAsyncHandler(async (req, res) => {
+  const posts = await Post.find({}).populate("user", "name");
+  res.json(posts);
+});
+
+export { createPost, getPosts };

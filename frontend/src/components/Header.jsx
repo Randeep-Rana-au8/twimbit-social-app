@@ -176,11 +176,25 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            Twimbit
+            <Link style={{ textDecoration: "none", color: "white", cursor: "pointer" }} to="/">
+              Twimbit
+            </Link>
           </Typography>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            {userInfo && (
+              <IconButton color="inherit">
+                <Badge color="secondary">
+                  <Link
+                    style={{ textDecoration: "none", color: "white", cursor: "pointer" }}
+                    to="/addpost"
+                  >
+                    Add Post
+                  </Link>
+                </Badge>
+              </IconButton>
+            )}
             {userInfo && (
               <IconButton aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={4} color="secondary">
